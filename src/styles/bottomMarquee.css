@@ -1,0 +1,12 @@
+.marquee{
+    background-color: rgb(218, 209, 209);
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    color: black;
+    animation: scroll-left 8s linear infinite
+    
+    
+}
