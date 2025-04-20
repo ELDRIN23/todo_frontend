@@ -1,0 +1,84 @@
+.task-container {
+    max-width: 650px; /* Spacious width */
+    margin: 40px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #f3f4f6, #ffffff); /* Soft gradient */
+    border-radius: 20px; /* Elegant rounded corners */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1), 0 4px 15px rgba(0, 0, 0, 0.1); /* Deep shadows */
+    overflow: hidden; /* Prevents container from scrolling */
+  }
+  
+  .task-heading {
+    text-align: center;
+    font-size: 32px; /* Larger title for impact */
+    margin-bottom: 25px;
+    color: #3e3e3e; /* Soft dark color */
+    font-family: 'Playfair Display', serif; /* Elegant font */
+    letter-spacing: 2px;
+    text-transform: uppercase; /* Adds elegance */
+  }
+  
+  .task-input {
+    margin-bottom: 30px; /* More space between input and task list */
+    text-align: center;
+  }
+  
+  .task-input-field {
+    padding: 12px 18px;
+    font-size: 18px;
+    border-radius: 12px;
+    border: 1px solid #dcdcdc;
+    margin-right: 12px;
+    width: 70%;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .add-task-btn {
+    padding: 12px 25px;
+    font-size: 18px;
+    background-color: #6a1b9a; /* Rich purple */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .add-task-btn:hover {
+    background-color: #8e24aa; /* Hover color */
+    transform: translateY(-3px); /* Smooth hover effect */
+  }
+  
+  /* Make only the task list scrollable */
+  .task-list {
+    list-style: none;
+    padding: 0;
+    max-height: 400px; /* Limit the height of the task list */
+    overflow-y: auto; /* Enable vertical scroll if content overflows */
+    padding-right: 10px;
+    margin-bottom: 0; /* Remove bottom margin */
+  }
+  
+  .task-item {
+    background-color: #ffffff;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .task-item:hover {
+    background-color: #f1f1f1; /* Subtle hover effect */
+    transform: translateY(-4px); /* Lift effect */
+  }
+  
+  .task-item h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #444444;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  

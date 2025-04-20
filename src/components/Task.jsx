@@ -1,13 +1,22 @@
 import { useState } from "react";
 import "../styles/task.css";
+import axiosInstance from "../../axiosInstance";
+
 
 function Task() {
   const [input, setInput] = useState();
 
-  const button = () => {
-    console.log("pressed");
+  const button = async () => {
+    try {
+      const res = await axiosInstance.post("/create", { task: input });
+      console.log(res);
+    } catch (err) {
+      console.log("err >>", err);
+    }
   };
 
+  
+  
   return (
     <>
       <section className="container">
@@ -24,6 +33,7 @@ function Task() {
           </button>
         </center>
       </section>
+
     </>
   );
 }
