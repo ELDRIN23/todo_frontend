@@ -1,84 +1,199 @@
+/* Keeping task container visible and larger */
 .task-container {
-    max-width: 650px; /* Spacious width */
-    margin: 40px auto;
-    padding: 30px;
-    background: linear-gradient(135deg, #f3f4f6, #ffffff); /* Soft gradient */
-    border-radius: 20px; /* Elegant rounded corners */
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1), 0 4px 15px rgba(0, 0, 0, 0.1); /* Deep shadows */
-    overflow: hidden; /* Prevents container from scrolling */
+  max-width: 600px; /* Increased container width for a more spacious feel */
+  margin: 40px auto; /* Center the container horizontally */
+  padding: 50px; /* More padding for luxurious feel */
+  background: linear-gradient(135deg, #f9f9f9, #ffffff); /* Soft gradient */
+  border-radius: 30px; /* Larger rounded corners for luxury */
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.1); /* Deep, subtle shadows */
+  overflow: hidden;
+  width: 100%;
+  font-family: 'Playfair Display', serif;
+  position: relative;
+  margin-top: 10px;
+}
+
+/* Center task heading */
+.task-heading {
+  text-align: center;
+  font-size: 38px; /* Larger heading for more emphasis */
+  margin-bottom: 30px;
+  color: #3e3e3e;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Task list styles with scroll */
+.task-list {
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto; /* Enable vertical scroll */
+  padding-right: 10px;
+  margin-bottom: 0;
+}
+
+/* Task item styles */
+.task-item {
+  background-color: #ffffff;
+  padding: 20px 30px; /* Increased padding for a more luxurious feel */
+  margin-bottom: 20px;
+  border-radius: 20px; /* Soft rounded corners */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.task-item h2 {
+  font-family: 'Montserrat', sans-serif;
+  color: #444444;
+  font-size: 22px; /* Larger task font size for more visibility */
+  font-weight: 700;
+  line-height: 1.5;
+  flex: 1;
+  margin-right: 15px;
+  word-wrap: break-word;
+}
+
+.task-item:hover {
+  background-color: #f9f9f9; /* Soft hover effect */
+  transform: translateY(-4px); /* Lift effect */
+}
+
+/* Button styles */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.deleteButton, .editButton {
+  margin: 0 10px;
+}
+
+button {
+  padding: 12px 20px; /* Larger, more elegant buttons */
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.deleteButton button {
+  background-color: #e74c3c;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.deleteButton button:hover {
+  background-color: #c0392b;
+  transform: translateY(-3px);
+}
+
+.editButton button {
+  background-color: #3498db;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.editButton button:hover {
+  background-color: #2980b9;
+  transform: translateY(-3px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .task-container {
+    max-width: 100%; /* Full width on smaller screens */
+    padding: 25px;
   }
-  
+
   .task-heading {
-    text-align: center;
-    font-size: 32px; /* Larger title for impact */
-    margin-bottom: 25px;
-    color: #3e3e3e; /* Soft dark color */
-    font-family: 'Playfair Display', serif; /* Elegant font */
-    letter-spacing: 2px;
-    text-transform: uppercase; /* Adds elegance */
-  }
-  
-  .task-input {
-    margin-bottom: 30px; /* More space between input and task list */
-    text-align: center;
-  }
-  
-  .task-input-field {
-    padding: 12px 18px;
-    font-size: 18px;
-    border-radius: 12px;
-    border: 1px solid #dcdcdc;
-    margin-right: 12px;
-    width: 70%;
-    background-color: #f9f9f9;
-    color: #333;
-  }
-  
-  .add-task-btn {
-    padding: 12px 25px;
-    font-size: 18px;
-    background-color: #6a1b9a; /* Rich purple */
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .add-task-btn:hover {
-    background-color: #8e24aa; /* Hover color */
-    transform: translateY(-3px); /* Smooth hover effect */
-  }
-  
-  /* Make only the task list scrollable */
-  .task-list {
-    list-style: none;
-    padding: 0;
-    max-height: 400px; /* Limit the height of the task list */
-    overflow-y: auto; /* Enable vertical scroll if content overflows */
-    padding-right: 10px;
-    margin-bottom: 0; /* Remove bottom margin */
-  }
-  
-  .task-item {
-    background-color: #ffffff;
-    padding: 20px 25px;
+    font-size: 30px; /* Adjust heading size for smaller screens */
     margin-bottom: 20px;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, background-color 0.3s ease;
   }
-  
-  .task-item:hover {
-    background-color: #f1f1f1; /* Subtle hover effect */
-    transform: translateY(-4px); /* Lift effect */
+
+  .task-item {
+    flex-direction: column; /* Stack text and buttons vertically */
+    align-items: flex-start;
+    padding: 15px;
   }
-  
+
   .task-item h2 {
-    font-family: 'Montserrat', sans-serif;
-    color: #444444;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 1.5;
+    font-size: 18px; /* Larger text for task items */
   }
-  
+
+  .buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .deleteButton, .editButton {
+    margin: 5px 0;
+  }
+
+  button {
+    width: 100%; /* Full-width buttons for mobile */
+    text-align: center;
+  }
+}
+/* Fade-in animation for the whole container */
+.task-container {
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+/* Fade-in animation for each task item */
+.task-item {
+  animation: fadeIn 0.4s ease-in-out;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* Staggered animation delay for list items */
+.task-item:nth-child(1) { animation-delay: 0.1s; }
+.task-item:nth-child(2) { animation-delay: 0.2s; }
+.task-item:nth-child(3) { animation-delay: 0.3s; }
+/* Add more if you have more tasks */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@media (max-width: 480px) {
+  .task-heading {
+    font-size: 26px; /* Slightly smaller heading for small screens */
+    margin-bottom: 15px;
+  }
+
+  .task-item h2 {
+    font-size: 16px; /* Slightly smaller text for tasks */
+  }
+
+  .buttons button {
+    font-size: 14px; /* Smaller button text */
+  }
+}

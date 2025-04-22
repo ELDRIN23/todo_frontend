@@ -1,12 +1,39 @@
-.marquee{
+.marquee {
     background-color: rgb(218, 209, 209);
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
     width: 100%;
     padding: 15px;
     font-size: 18px;
     color: black;
-    animation: scroll-left 8s linear infinite
-    
-    
+    white-space: nowrap; /* To prevent text from wrapping */
+    overflow: hidden; /* Hide the text when it overflows */
+}
+
+.marquee p {
+    display: inline-block;
+    animation: scroll-left 8s linear infinite, bounce 1s ease-in-out infinite;
+}
+
+/* Scroll animation */
+@keyframes scroll-left {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Bounce effect */
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px); /* Slight bounce */
+    }
+    100% {
+        transform: translateY(0);
+    }
 }

@@ -1,25 +1,122 @@
-
-input{
-  width: 300px;
-  height: 40px;
-  padding: 10px;
-  font-size: 16px;
-  margin-top: 18px;
+/* Luxurious, animated, responsive input */
+input {
+  width: 100%;
+  max-width: 360px;
+  height: 55px;
+  padding: 16px 20px;
+  font-size: 18px;
+  border: 2px solid #ddd;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  margin-top: 20px;
+  font-family: 'Montserrat', sans-serif;
+  animation: fadeInUp 0.6s ease both;
 }
 
-.btn{
-  width: 50px;
-  height: 40px;
-  background-color: blue;
+input:focus {
+  outline: none;
+  border-color: blue;
+  box-shadow: 0 0 10px rgba(0, 0, 255, 0.4);
+  transform: scale(1.03);
+}
+
+/* Button using original blue color */
+.btn {
+  width: 70px;
+  height: 55px;
+  background-color: blue; /* Original color kept */
   color: white;
-  font-size: 16px;
-  
+  font-size: 18px;
+  border: none;
+  border-radius: 16px;
+  margin-left: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  position: relative; /* For positioning the sparkle effect */
+  overflow: hidden; /* Hide anything that overflows */
+  animation: fadeInUp 0.6s ease both;
+  transition: all 0.3s ease;
 }
 
-.footer{
-  background-color:lightgrey;
-
+/* Glitter sparkle effect with multiple "sparkles" */
+.btn:hover {
+  animation: button-hover 0.5s ease-in-out both;
 }
 
+/* Glitter Sparkles Animation */
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://cdn.pixabay.com/photo/2017/08/30/01/27/sparkles-2695310_960_720.jpg') repeat;
+  animation: glitter 1.5s infinite linear;
+  opacity: 0;
+  pointer-events: none; /* Ensure sparkles don't interfere with button click */
+}
 
+@keyframes glitter {
+  0% {
+    background-position: 0 0;
+    opacity: 0.1;
+  }
+  50% {
+    background-position: 100% 100%;
+    opacity: 0.6;
+  }
+  100% {
+    background-position: 0 0;
+    opacity: 0.1;
+  }
+}
 
+/* Hover Animation: Scale, Shadow, Glow */
+@keyframes button-hover {
+  0% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    background-color: blue;
+  }
+  50% {
+    transform: scale(1.1) translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 255, 0.4);
+    background-color: darkblue;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    background-color: blue;
+  }
+}
+
+/* Animation keyframes for fade-in (applies to both button and input) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  input {
+    max-width: 100%;
+    height: 50px;
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .btn {
+    width: 60px;
+    height: 50px;
+    font-size: 16px;
+    margin-left: 8px;
+  }
+}
