@@ -1,46 +1,40 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState , useEffect} from 'react'
-import Modal from 'react-modal';
-import axios from 'axios'
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 // eslint-disable-next-line react/prop-types
-const EditTodo = ({ modalIsOpen, closeModal,fetchTask,todoData }) => {
-  const [title,setTitle] = useState("")
+const EditTodo = ({ modalIsOpen, closeModal, fetchTasks, todoData }) => {
+  const [title, setTitle] = useState("");
 
-
-   useEffect(()=>{
-     if(todoData){
+  console.log(title);
+  useEffect(() => {
+    if (todoData) {
+      console.log(todoData);
       // eslint-disable-next-line react/prop-types
-      setTitle(todoData.getTodoIdData.title)
-     }
-   },[todoData])
-   
+      setTitle(todoData.tasks.title);
+      console.log(todoData.tasks.title, "title");
+    }
+  }, [todoData]);
 
-
-
-
-  const handleEditTodo = async (id)=>{
+  const handleEditTodo = async (id) => {
     try {
-      const response = await axios.put({ title }  )
-        
-     
+      const response = await axios.put(`http://localhost:3000/api/task/${id}`, {
+        title,
+      });
+
       console.log(response);
-      closeModal()
-      fetchData()
-      toast.success('Task Update successfully !')
+      closeModal();
+      fetchTasks();
+      toast.success("Task Update successfully !");
     } catch (error) {
       console.log(error);
-      toast.error('Failed to Edit task. Please try again.')
+      toast.error("Failed to Edit task. Please try again.");
     }
-  }
-  
-
-
-    
+  };
 
   return (
     <Modal
@@ -48,16 +42,16 @@ const EditTodo = ({ modalIsOpen, closeModal,fetchTask,todoData }) => {
       onRequestClose={closeModal}
       style={{
         content: {
-          width: '90%',
-          maxWidth: '400px',
-          margin: 'auto',
-          borderRadius: '10px',
-          padding: '20px',
-          inset: '50% auto auto 50%',
-          transform: 'translate(-50%, -50%)',
+          width: "90%",
+          maxWidth: "400px",
+          margin: "auto",
+          borderRadius: "10px",
+          padding: "20px",
+          inset: "50% auto auto 50%",
+          transform: "translate(-50%, -50%)",
         },
         overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          backgroundColor: "rgba(0, 0, 0, 0.75)",
           zIndex: 1000,
         },
       }}
@@ -82,7 +76,7 @@ const EditTodo = ({ modalIsOpen, closeModal,fetchTask,todoData }) => {
         </button>
         <button
           // eslint-disable-next-line react/prop-types
-          onClick={() => handleEditTodo(todoData.getTodoIdData._id)}
+          onClick={() => handleEditTodo(todoData.tasks.id)}
           className="p-2 bg-purple-500 text-white rounded hover:bg-purple-600 focus:ring-2 focus:ring-purple-400"
         >
           Edit
@@ -90,8 +84,6 @@ const EditTodo = ({ modalIsOpen, closeModal,fetchTask,todoData }) => {
       </div>
     </Modal>
   );
-  
 };
 
-export default EditTodo
-
+export default EditTodo;

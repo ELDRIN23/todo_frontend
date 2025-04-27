@@ -2,17 +2,32 @@ import React, { useEffect, useState } from "react";
 import "../styles/fetchTasks.css";
 import axiosInstance from "../../axiosInstance";
 import EditTodo from "./EditTodo";
+import "../styles/task.css";
 
-// fetch and delete task
-////////////////////////
 const FetchTasks = () => {
+  // add task
+  const [input, setInput] = useState();
   const [task, setTask] = useState([]);
+  //edit task
   const [TodoEditModalIsOpen, setTodoEditModalIsOpen] = useState(false);
   const [EdiTtodo, setEditTodo] = useState(null);
+
+  console.log(EdiTtodo);
 
   useEffect(() => {
     fetchTasks();
   }, []);
+
+  //create task
+  const addTask = async () => {
+    try {
+      const res = await axiosInstance.post("/create", { task: input });
+      console.log(res);
+      fetchTasks();
+    } catch (err) {
+      console.log("err >>", err);
+    }
+  };
 
   //fetch tasks
   const fetchTasks = async () => {
@@ -26,19 +41,18 @@ const FetchTasks = () => {
   };
 
   //get single task
-  const getTaskId = async (taskId) => {
+  const getTaskId = async (id) => {
     try {
-      const res = await axiosInstance.get(`"/task/${taskId}`);
-      
+      const res = await axiosInstance.get(`/task/${id}`);
+
       setEditTodo(res.data);
-      
     } catch (err) {
       console.log("err >>", err);
     }
   };
-  
-  const openTodoeditModal = async (taskId) => {
-    await getTaskId(taskId);
+
+  const openTodoeditModal = async (id) => {
+    await getTaskId(id);
     setTodoEditModalIsOpen(true);
   };
 
@@ -46,8 +60,6 @@ const FetchTasks = () => {
     setTodoEditModalIsOpen(false);
     setEditTodo(null); // clear selcted data
   };
-
-
 
   //delete task
   const deleteTask = async (taskId) => {
@@ -70,6 +82,20 @@ const FetchTasks = () => {
 
   return (
     <>
+      <section className="container">
+        <center>
+          <div className="input-wrapper">
+            <input
+              type="text"
+              placeholder="Enter a task..."
+              onChange={(event) => setInput(event.target.value)}
+            />
+            <button className="btn" onClick={addTask}>
+              add
+            </button>
+          </div>
+        </center>
+      </section>
       <div className="task-container">
         <h1 className="task-heading">My Tasks</h1>
         <ul className="task-list">
@@ -87,9 +113,7 @@ const FetchTasks = () => {
                   </button>
                 </div>
                 <div className="editButton">
-                  <button
-                    onClick={() => openTodoeditModal(item._id)}
-                  >
+                  <button onClick={() => openTodoeditModal(item._id)}>
                     edit
                   </button>
                 </div>
@@ -103,7 +127,7 @@ const FetchTasks = () => {
         closeModal={closeTodoeditModal}
         todoData={EdiTtodo}
         fetchTasks={fetchTasks}
-      />
+      />
     </>
   );
 };
