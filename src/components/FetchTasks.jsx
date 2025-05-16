@@ -19,10 +19,10 @@ const FetchTasks = () => {
   }, []);
 
   //create task
-  const addTask = async () => {
+  const addTask = async (req,res) => {
     try {
       const res = await axiosInstance.post("/create", { task: input });
-      console.log(res);
+      // console.log(res);
       fetchTasks();
     } catch (err) {
       console.log("err >>", err);
@@ -33,7 +33,7 @@ const FetchTasks = () => {
   const fetchTasks = async () => {
     try {
       const res = await axiosInstance.get("/fetch-all");
-      console.log(res);
+      // console.log(res);
       setTask(res?.data);
     } catch (err) {
       console.log("err >>", err);
