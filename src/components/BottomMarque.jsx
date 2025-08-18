@@ -8,7 +8,7 @@ const BottomMarque = () => {
   return (
     <section className="marquee">
       <marquee>
-        <h1>{message.repeat(50)}</h1>
+        <h1>{message.repeat(100)}</h1>
       </marquee>
     </section>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import "../styles/header.css"; // Make sure this file is correctly linked
+import "../styles/header.css"; 
 
 const Header = () => {
   return (
@@ -12,7 +12,6 @@ const Header = () => {
           <ul className="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-            {/* You can add more links here */}
           </ul>
         </nav>
       </header>

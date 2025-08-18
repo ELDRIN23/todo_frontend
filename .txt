@@ -1,0 +1,20 @@
+frontend
+---------
+
+* vite
+* axios
+* daisy UI
+* tailwind
+* toastify
+* react-router-dom
+* react-modal
+
+backend
+-------
+
+* express
+* mongoose
+* cors
+* nodemon
+* dotenv
+
