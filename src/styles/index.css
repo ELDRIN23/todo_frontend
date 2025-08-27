@@ -1,16 +1,6 @@
-*{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-  
-  }
+@import "tailwindcss";
+@plugin "daisyui";
 
-body{
-  background-color: rgb(194, 189, 189);
-  overflow: hidden;
-}  
-
-
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
