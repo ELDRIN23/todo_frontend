@@ -24,7 +24,9 @@ export default function Signup() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md sm:max-w-lg bg-gray-800/80 backdrop-blur-md rounded-xl p-6 sm:p-8 shadow-2xl border border-gray-700">
-        <h2 className="text-white text-2xl sm:text-3xl font-extrabold text-center mb-4 sm:mb-6">Create Account</h2>
+        <h2 className="text-white text-2xl sm:text-3xl font-extrabold text-center mb-4 sm:mb-6">
+          Create Account
+        </h2>
         <p className="text-center text-gray-300 text-sm sm:text-base mb-6">
           Join us and manage your tasks seamlessly
         </p>
@@ -62,9 +64,12 @@ export default function Signup() {
             </span>
           </div>
 
+          {/* Register Button */}
           <button
             type="submit"
-            className="w-full bg-purple-600 py-3 sm:py-4 rounded-lg text-white font-semibold text-lg hover:bg-purple-700 shadow-lg transition"
+            className="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600
+                       py-3 sm:py-4 rounded-lg text-white font-semibold text-lg
+                       shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300"
           >
             Register
           </button>
@@ -79,8 +84,9 @@ export default function Signup() {
             Login
           </span>
         </div>
-{/* 
-        <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+
+        {/* Optional Social Buttons */}
+        {/* <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <button className="flex-1 flex items-center justify-center bg-gray-700 text-white px-4 py-2 sm:py-3 rounded-lg hover:bg-gray-600 transition">
             Google
           </button>
