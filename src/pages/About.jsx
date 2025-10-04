@@ -26,8 +26,8 @@ export default function About() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            Hi, I’m <span className="font-semibold">Eldrin</span> 👋.  
-            A <span className="font-semibold">Full Stack Developer</span> & 
+            Hi, I’m <span className="font-semibold">Eldrin</span> 👋. A{" "}
+            <span className="font-semibold">Full Stack Developer</span> &
             <span className="font-semibold"> Cybersecurity Enthusiast</span>.
           </motion.p>
 
@@ -37,9 +37,9 @@ export default function About() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.6 }}
           >
-            I build modern web apps that are fast, clean, and responsive.  
-            This Todo project is one of my experiments to mix productivity with 
-            a smooth user experience.
+            I build modern web apps that are fast, clean, and responsive. This
+            Todo project is one of my experiments to mix productivity with a
+            smooth user experience,
           </motion.p>
 
           <motion.p
@@ -48,8 +48,7 @@ export default function About() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9, duration: 0.6 }}
           >
-            When I’m not coding, I dive into security challenges, explore new 
-            technologies, and contribute to open-source communities.
+            i explore new technologies, and contribute to open-source communities.
           </motion.p>
 
           <motion.div
