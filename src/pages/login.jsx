@@ -1,93 +1,83 @@
 import React, { useState } from "react";
 import axiosInstance from "../../axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff, User, Lock } from "lucide-react";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosInstance.post("/users/login", {username, password});
-      localStorage.setItem("token", response?.data?.token)
-      alert("login successfull!");
-      navigate("/tasks")
+      const response = await axiosInstance.post("/users/login", { username, password });
+      localStorage.setItem("token", response?.data?.token);
+      alert("Login successful!");
+      navigate("/tasks");
     } catch (error) {
-       console.error("login error:", error.response?.data || error.message);
-      alert(error.response?.data?.message || "login failed. Try again!");
+      alert(error.response?.data?.message || "Login failed. Try again!");
     }
-    console.log("Logging in with:", username, password);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4 sm:px-6 lg:px-8">
-      <div className="card w-full max-w-md shadow-2xl bg-gray-800 rounded-lg p-6 sm:p-8">
-        <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-6">
-          Login
-        </h2>
-        <form onSubmit={handleLogin} className="space-y-4">
-          {/* username */}
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text text-gray-200 font-semibold">username</span>
-            </label>
+      <div className="w-full max-w-md sm:max-w-lg bg-gray-800/90 backdrop-blur-md rounded-xl p-6 sm:p-8 shadow-2xl border border-gray-700">
+        <h2 className="text-3xl font-extrabold text-center text-white mb-6">Login</h2>
+        <p className="text-center text-gray-300 mb-6">
+          Access your account to manage your tasks efficiently
+        </p>
+
+        <form onSubmit={handleLogin} className="space-y-5">
+          {/* Username */}
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
-              placeholder="Enter your username"
-              className="input input-bordered w-full bg-gray-700 text-white border-gray-600 placeholder-gray-400 focus:border-purple-500 focus:ring focus:ring-purple-500/30"
+              placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
               required
             />
           </div>
 
           {/* Password */}
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text text-gray-200 font-semibold">Password</span>
-            </label>
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
-              type="password"
-              placeholder="Enter your password"
-              className="input input-bordered w-full bg-gray-700 text-white border-gray-600 placeholder-gray-400 focus:border-purple-500 focus:ring focus:ring-purple-500/30"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full pl-10 pr-10 py-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
               required
             />
-          </div>
-
-          {/* Remember Me */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
-            {/* <label className="label cursor-pointer text-gray-200 flex items-center mb-2 sm:mb-0">
-              <input type="checkbox" className="checkbox checkbox-sm mr-2" />
-              Remember me
-            </label> */}
-            {/* <a href="#" className="text-purple-400 text-sm hover:underline">
-              Forgot password?
-            </a> */}
+            <span
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-purple-400 transition"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </span>
           </div>
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="btn w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 
-                       text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl 
-                       transition-transform duration-300 rounded-md"
+            className="w-full py-3 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 
+                       text-white font-semibold rounded-lg shadow-lg hover:scale-105 hover:shadow-xl 
+                       transition transform duration-300"
           >
             Login
           </button>
         </form>
 
         {/* Signup Link */}
-        <p className="mt-4 text-center text-gray-300 text-sm">
-          Don't have an account?{""}
-          <a
-            href="/"
-            className="text-purple-400 font-semibold hover:underline"
-          >
+        <p className="mt-6 text-center text-gray-300 text-sm">
+          Don't have an account?{" "}
+          <a href="/" className="text-purple-400 font-semibold hover:underline">
             Sign up
           </a>
         </p>
