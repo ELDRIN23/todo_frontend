@@ -136,20 +136,23 @@ const Tasks = () => {
   return (
     <div className="max-w-3xl mx-auto py-24 px-4 sm:px-6 md:px-8">
       {/* Input */}
-      <div className="flex flex-col sm:flex-row gap-2 mb-6">
+      <div className="flex flex-col sm:flex-row gap-3 mb-8">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && addTask()}
           placeholder="Enter a task..."
-          className="input input-bordered w-full flex-1 text-white placeholder-white text-lg bg-gray-700/50"
+          className="input input-bordered w-full flex-1 text-white placeholder-white text-xl bg-gray-700/50 h-24 sm:h-14 px-6 rounded-md"
+          // 👆 slight border radius with rounded-md
         />
-        <button className="btn btn-primary w-full sm:w-auto" onClick={addTask}>
+        <button
+          className="btn btn-primary w-full sm:w-auto h-14 text-lg"
+          onClick={addTask}
+        >
           Add
         </button>
       </div>
-
       {/* Task list */}
       <h1 className="text-2xl font-bold mb-4 text-white">My Tasks</h1>
       <ul className="flex flex-col gap-6 w-full">
