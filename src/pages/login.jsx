@@ -1,13 +1,25 @@
 import React, { useState } from "react";
+import axiosInstance from "../../axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Add your login logic here
-    console.log("Logging in with:", email, password);
+    try {
+      const response = await axiosInstance.post("/users/login", {username, password});
+      localStorage.setItem("token", response?.data?.token)
+      alert("login successfull!");
+      navigate("/tasks")
+    } catch (error) {
+       console.error("login error:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "login failed. Try again!");
+    }
+    console.log("Logging in with:", username, password);
   };
 
   return (
@@ -17,17 +29,17 @@ export default function Login() {
           Login
         </h2>
         <form onSubmit={handleLogin} className="space-y-4">
-          {/* Email */}
+          {/* username */}
           <div className="form-control w-full">
             <label className="label">
-              <span className="label-text text-gray-200 font-semibold">Email</span>
+              <span className="label-text text-gray-200 font-semibold">username</span>
             </label>
             <input
-              type="email"
-              placeholder="Enter your email"
+              type="text"
+              placeholder="Enter your username"
               className="input input-bordered w-full bg-gray-700 text-white border-gray-600 placeholder-gray-400 focus:border-purple-500 focus:ring focus:ring-purple-500/30"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -49,13 +61,13 @@ export default function Login() {
 
           {/* Remember Me */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
-            <label className="label cursor-pointer text-gray-200 flex items-center mb-2 sm:mb-0">
+            {/* <label className="label cursor-pointer text-gray-200 flex items-center mb-2 sm:mb-0">
               <input type="checkbox" className="checkbox checkbox-sm mr-2" />
               Remember me
-            </label>
-            <a href="#" className="text-purple-400 text-sm hover:underline">
+            </label> */}
+            {/* <a href="#" className="text-purple-400 text-sm hover:underline">
               Forgot password?
-            </a>
+            </a> */}
           </div>
 
           {/* Submit Button */}
@@ -71,9 +83,9 @@ export default function Login() {
 
         {/* Signup Link */}
         <p className="mt-4 text-center text-gray-300 text-sm">
-          Don't have an account?{" "}
+          Don't have an account?{""}
           <a
-            href="/signup"
+            href="/"
             className="text-purple-400 font-semibold hover:underline"
           >
             Sign up

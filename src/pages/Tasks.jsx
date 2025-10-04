@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 const Tasks = () => {
   const [input, setInput] = useState("");
@@ -9,13 +10,26 @@ const Tasks = () => {
   const [currentTask, setCurrentTask] = useState({ id: null, task: "" });
   const [taskToDelete, setTaskToDelete] = useState(null);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchTasks();
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
+
   const fetchTasks = async () => {
+    const token = localStorage.getItem("token");
     try {
-      const res = await axiosInstance.get("/fetch-all");
+      const headers = {};
+      if (token) headers.Authorization = `Bearer ${token}`;
+
+      const res = await axiosInstance.get("tasks/fetch-all", { headers });
       setTasks(res?.data || []);
     } catch (err) {
       console.error("Fetch error >>", err);
@@ -24,8 +38,21 @@ const Tasks = () => {
 
   const addTask = async () => {
     if (!input.trim()) return;
+    const token = localStorage.getItem("token");
+    // console.log(token);
     try {
-      await axiosInstance.post("/create", { task: input.trim() });
+      const headers = {};
+      if (token) headers.Authorization = `Bearer ${token}`;
+
+      await axiosInstance.post(
+        "/tasks/create",
+        { task: input.trim() },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setInput("");
       fetchTasks();
     } catch (err) {
@@ -45,10 +72,19 @@ const Tasks = () => {
 
   const updateTask = async () => {
     if (!currentTask.task.trim()) return;
+    const token = localStorage.getItem("token");
+
     try {
-      await axiosInstance.post(`/updateTask/${currentTask.id}`, {
-        task: currentTask.task.trim(),
-      });
+      const headers = {};
+      if (token) headers.Authorization = `Bearer ${token}`;
+
+      await axiosInstance.post(
+        `tasks/updateTask/${currentTask.id}`,
+        {
+          task: currentTask.task.trim(),
+        },
+        { headers }
+      );
       fetchTasks();
       closeEditModal();
     } catch (err) {
@@ -67,9 +103,16 @@ const Tasks = () => {
   };
 
   const deleteTask = async () => {
+    const token = localStorage.getItem("token");
+
     if (!taskToDelete) return;
     try {
-      await axiosInstance.delete(`/deleteTask/${taskToDelete._id}`);
+      const headers = {};
+      if (token) headers.Authorization = `Bearer ${token}`;
+
+      await axiosInstance.delete(`tasks/deleteTask/${taskToDelete._id}`, {
+        headers,
+      });
       fetchTasks();
       closeDeleteModal();
     } catch (err) {
@@ -79,7 +122,11 @@ const Tasks = () => {
 
   const toggleStatus = async (id) => {
     try {
-      await axiosInstance.post(`/toggleStatus/${id}`);
+      const token = localStorage.getItem("token");
+      const headers = {};
+      if (token) headers.Authorization = `Bearer ${token}`;
+
+      await axiosInstance.post(`tasks/toggleStatus/${id}`, {}, { headers });
       fetchTasks();
     } catch (err) {
       console.error("Toggle status error >>", err);
@@ -128,7 +175,9 @@ const Tasks = () => {
             <div className="flex-1 min-w-0 w-full mt-2">
               <p
                 className={`font-medium text-left break-words whitespace-pre-wrap ${
-                  item.status === "completed" ? "line-through text-gray-400" : "text-white"
+                  item.status === "completed"
+                    ? "line-through text-gray-400"
+                    : "text-white"
                 }`}
               >
                 {item.task}

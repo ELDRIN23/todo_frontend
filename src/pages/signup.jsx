@@ -1,104 +1,55 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../axiosInstance";
 
 export default function Signup() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+
+    try {
+      const response = await axiosInstance.post("/users/signup", { username, password });
+      console.log("Signup response:", response?.data);
+      localStorage.setItem("token", response?.data?.token)
+      alert("Registration successful!");
+      navigate("/Tasks"); 
+    } catch (error) {
+      console.error("Signup error:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Signup failed. Try again!");
     }
-    // Add your signup logic here
-    console.log("Signing up:", { name, email, password });
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4 sm:px-6 lg:px-8">
-      <div className="card w-full max-w-md shadow-2xl bg-gray-800 rounded-lg p-6 sm:p-8">
-        <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-6">Sign Up</h2>
+      <div className="w-full max-w-md bg-gray-800 rounded-lg p-6 shadow-xl">
+        <h2 className="text-white text-2xl font-bold text-center mb-6">Register</h2>
         <form onSubmit={handleSignup} className="space-y-4">
-          {/* Name */}
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text text-gray-200 font-semibold">Full Name</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Enter your name"
-              className="input input-bordered w-full bg-gray-700 text-white border-gray-600 placeholder-gray-400 focus:border-purple-500 focus:ring focus:ring-purple-500/30"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-
-          {/* Email */}
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text text-gray-200 font-semibold">Email</span>
-            </label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="input input-bordered w-full bg-gray-700 text-white border-gray-600 placeholder-gray-400 focus:border-purple-500 focus:ring focus:ring-purple-500/30"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          {/* Password */}
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text text-gray-200 font-semibold">Password</span>
-            </label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="input input-bordered w-full bg-gray-700 text-white border-gray-600 placeholder-gray-400 focus:border-purple-500 focus:ring focus:ring-purple-500/30"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          {/* Confirm Password */}
-          <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text text-gray-200 font-semibold">Confirm Password</span>
-            </label>
-            <input
-              type="password"
-              placeholder="Confirm your password"
-              className="input input-bordered w-full bg-gray-700 text-white border-gray-600 placeholder-gray-400 focus:border-purple-500 focus:ring focus:ring-purple-500/30"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          {/* Signup Button */}
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600"
+            required
+          />
           <button
             type="submit"
-            className="btn w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 
-                       text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl 
-                       transition-transform duration-300 rounded-md"
+            className="w-full bg-purple-600 py-2 rounded text-white hover:bg-purple-700"
           >
-            Sign Up
+            Register
           </button>
         </form>
-
-        {/* Login Link */}
-        <p className="mt-4 text-center text-gray-300 text-sm">
-          Already have an account?{" "}
-          <a href="/login" className="text-purple-400 font-semibold hover:underline">
-            Login
-          </a>
-        </p>
       </div>
     </div>
   );
